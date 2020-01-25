@@ -1,0 +1,182 @@
+======================================= module dependencies =======================================
+
+A module can only depend on the modules above it in this list.
+
+c:
+weather: c
+gx: c
+world: c, gx
+map: c, gx
+gui: c, gx
+journal: c, gx
+skills: c, gui
+individuals: c, gx, skills
+crew: c, gui, skills
+gear: c, gx, crew, gui, skills
+places: c, gx, world, map, gear
+status: c, gx, crew, gear, map
+area: c, gx, world, map, gear, gui, status
+travel: c, gx, world, crew, map, gear, status, gui, places
+player: c, gx, places, individuals, map, gui, status, journal, crew, gear, skills, world, travel
+zerbat: c, gear, places, individuals, crew
+game: c, gx, map, gui, status, journal, player, crew, gear, places, travel, zerbat
+cheat: c, gx, crew, gear, player, map
+tests: c, crew, gear, travel, world
+
+=============================================== TODO ==============================================
+
+@@@@@@@@              BUGS
+
+Fix capitalization on item descriptions (figure out what it should be)
+
+@@@@@@@@              TO WORK ON NEXT
+
+place type MINE
+    -- consume illumination while exploring
+    -- find gems, ore, coal inside
+    -- handle interaction if occupied
+        - talk with foreman
+        - ask for information
+        - recruit
+        - attack
+            miners run into the mine
+    -- if occupied, might be a few ingots lying around
+    -- convert to encounter if unoccupied, and it turns out that monsters are inside
+    -- skills to identify gemstone matricies, metal ores
+    -- a way to keep track of mines that have already been cleared, and when cleared
+        -- monsters could have moved in after a while
+    -- a way to update the mine type on the CHOOSE DESTINATION button readout
+    -- a mine icon
+    -- add smelting skill
+        -- use to identify type of mine
+        -- quality of ore determines chance of success
+    -- add diplomacy skill
+    -- add gemology skill
+        -- use to identify type of mine
+    -- trainer for smelting
+
+@@@@@@@@              BASIC FUNCTIONALITY
+
+Add a user-defined marker on the map
+    Tie it to the current area, and keep a list of markers on the Journal page
+
+Allow interruption of movement, due to events
+
+Code up these place types:
+    ENCOUNTER
+    DAMSEL_IN_DISTRESS
+    MERCHANT
+    SKYSHIP
+    TRAP
+    TREEHOUSE
+    COTTAGE
+    FARM
+    VILLAGE
+    FORTRESS
+    CASTLE
+    SHIP
+    TOWER
+    PYRAMID
+    FAIRY_RING
+    STONE_RUINS
+    WOODEN_RUINS
+    QUICKSAND
+    PIT
+    CAVE
+    MINE
+
+@@@@@@@@              IMPROVEMENTS
+
+The journal needs a bunch of events stuff added to it
+
+For each step actually moved, show any cool messages available (scaled cliffs, crossed water, etc)
+
+have stashes get found and looted over time
+    need a stashing skill (concealment?)
+
+add features to minimap
+    show/hide icons
+    show map/terrain types
+
+add reputation
+
+equipment should wear out
+    repairs should fix it back to "used"
+
+sleep dialog doesn't need radio buttons, or an OK button. One click should choose the sleep.
+
+show current-ability-score/base-ability-score in crew listing
+
+all bodies weigh the same, it should be a bit random
+
+@@@@@@@@              TECHNICAL
+
+replace ugly in-javascript html with handlebar templates
+
+enable or disable debug mode via query parameter (this will control if the tests get run or not)
+
+@@@@@@@@              STORY
+
+Make searching the very first area result in finding another crewmember, injured, who will join you (and a bunch of gear)
+
+Add blacksmith shops to villages and other populated area, so that the player can smelt their ore into ingots.
+
+@@@@@@@@              TUNING
+
+buffalo and some large animals should be more rare, impossible to catch without a weapon
+    --- use c.chooseWeightedOption
+
+@@@@@@@@              CORE
+
+check all the code for TODOs
+
+come up with list of random NPC names
+    lists of male, female, and last names
+    maintain list of previously-seen names in gx.gs, to avoid dupes
+
+sort inventory lists
+
+@@@@@@@@              FEATURES
+
+make the journal fancier - allow paging by day
+
+figure out how to save and load games, server-side
+    stuff player variables into array, save as JSON
+    Make usernames, passwords
+    save old versions in other directory, with entire app and all save data
+
+@@@@@@@@              DEPTH
+
+Make random player stats always add up to 5. (later: make them user-specifiable)
+
+Add sickness and disease
+
+@@@@@@@@              COSMETIC
+
+Convert icons to chicklet buttons (or small torn pieces of paper)
+
+add a lot more descriptions to World
+
+add a bunch more gear
+
+scan in drawings
+
+show stats as progress bars
+
+
+
+================================================ notes ==============================================
+
+// ideas from Thomas on how to improve the loading
+require(['my-app'], function(app) {
+
+    // one option
+    app.on("load", app.start);
+
+    // another option
+    app.load().then(function(loadedApp) {
+        loadedApp.start();
+    })
+
+});
+

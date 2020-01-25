@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Zerbat</title>
+    <meta name="description" content="An exploration simulation game">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/le-frog/jquery-ui.css">
+    <script src="js/lib/modernizr.js"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+<p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a>
+    or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your
+    experience.</p>
+<![endif]-->
+
+<div id="noCssLoadMessage">
+    <h1>The game is loading...</h1>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+<div class="topLevel divGameWrapper" id="zGameArea">
+
+<!--<h1 id="zTitle">Exploration Simulation: The Island of Zerbat</h1>-->
+
+<ul>
+    <li><a href="#tabs-map">Map</a></li>
+    <li><a href="#tabs-area">Area</a></li>
+    <li><a href="#tabs-status">Status</a></li>
+    <li><a href="#tabs-crew">Crew</a></li>
+    <li><a href="#tabs-inventory">Inventory</a></li>
+    <li><a href="#tabs-journal">Journal</a></li>
+    <li><a href="#tabs-score">Score</a></li>
+    <li><a href="#tabs-game">Game</a></li>
+    <li><a href="#tabs-help">Help</a></li>
+</ul>
+
+<div id="tabs-game">
+    <h2>Do you dare to explore the mythical Island of Zerbat?</h2>
+    <ul class="zGameButtons">
+        <li>
+            <input type="button" class="buttonMeta zButton" value="new game" id="buttonNewGame" disabled/>
+        </li>
+        <li>
+            <input type="button" class="buttonMeta zButton" value="load game" id="buttonLoadGame" disabled/>
+        </li>
+        <li>
+            <input type="button" class="buttonMeta zButton" value="save game" id="buttonSaveGame" disabled/>
+        </li>
+        <li>
+            <input type="button" class="buttonMeta zButton" value="quit game" id="buttonQuitGame" disabled/>
+        </li>
+        <li>
+            <input type="button" class="buttonMeta zButton" value="settings" id="buttonGameSettings" disabled/>
+        </li>
+    </ul>
+    <p> WARNING: The game isn't very interesting yet, because it's not done. Working on it as of September 2013. </p>
+    <p>NOTE: This works best with the <a href="http://google.com/chrome">Chrome</a> browser. Firefox is super slow.</p>
+</div>
+
+<div id="tabs-map">
+    <div id="zMessages"></div>
+    <div class="divLeftStatus">
+        <canvas id="canvasWeather" width="192" height="50">You seem to need a better browser.</canvas>
+        <table>
+            <tr>
+                <td>Date:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusCurrentDate">*</label></td>
+            </tr>
+            <tr>
+                <td>Time:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusCurrentTime">*</label></td>
+            </tr>
+            <tr>
+                <td>Health:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusHealth">*</label></td>
+            </tr>
+            <tr>
+                <td>Energy:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusCrewEnergy">*</label></td>
+            </tr>
+            <tr>
+                <td>Travel:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusTravelMode">*</label></td>
+            </tr>
+            <tr>
+                <td>Terrain:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusTerrainType">*</label></td>
+            </tr>
+            <tr>
+                <td>Weather:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusWeather">*</label></td>
+            </tr>
+            <tr>
+                <td>Status:</td>
+                <td><label class="labelStatusEntry" id="labelMiniStatusStatusLine">*</label></td>
+            </tr>
+        </table>
+    </div>
+    <div class="divRightControls">
+        <canvas id="canvasMinimap" width="192" height="192">You seem to need a better browser.</canvas>
+        <ul class="zListButtonControl">
+            <li>
+                <input type="button" class="buttonControl zButton" value="set travel speed" id="buttonTravelMode"
+                       disabled/>
+            </li>
+            <li>
+                <input type="button" class="buttonControl zButton" value="choose destination" id="buttonLook" disabled/>
+            </li>
+            <li>
+                <input type="button" class="buttonControl zButton" value="rest" id="buttonRest" disabled/>
+                <input type="button" class="buttonControl zButton" value="sleep" id="buttonSleep" disabled/>
+            </li>
+            <li>
+                <input type="button" class="buttonControl zButton" value="seek food" id="buttonSeekFood" disabled/>
+            </li>
+            <li>
+                <input type="button" class="buttonControl zButton" value="practice skills" id="buttonTrain" disabled/>
+            </li>
+            <li>
+                <input type="button" class="buttonControl zButton" value="search area" id="buttonSearch" disabled/>
+            </li>
+            <li>
+                <input type="button" class="buttonControl zButton" value="construct here" id="buttonBuild" disabled/>
+            </li>
+        </ul>
+    </div>
+    <div class="divCenterMap">
+        <canvas id="canvasMap" width="768" height="512">You seem to need a newer browser.</canvas>
+    </div>
+</div>
+
+<div id="tabs-journal">
+    <table class="zJournal zTable">
+        <tbody>
+        <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Text</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="tabs-area">
+</div>
+
+<div id="tabs-status">
+    <table class="zStatus zTable">
+        <tr>
+            <td>Your name</td>
+            <td><label class="labelStatusEntry" id="labelPlayerCharacterName">*</label></td>
+        </tr>
+        <tr>
+            <td>Date</td>
+            <td><label class="labelStatusEntry" id="labelCurrentDate">*</label></td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td><label class="labelStatusEntry" id="labelCurrentTime">*</label></td>
+        </tr>
+        <tr>
+            <td>Crew size</td>
+            <td><label class="labelStatusEntry" id="labelCrewSize">*</label></td>
+        </tr>
+        <tr>
+            <td>Average load</td>
+            <td><label class="labelStatusEntry" id="labelAverageLoad">*</label></td>
+        </tr>
+        <tr>
+            <td>Num crew sleepy</td>
+            <td><label class="labelStatusEntry" id="labelNumCrewSleepy">*</label></td>
+        </tr>
+        <tr>
+            <td>Min crew energy</td>
+            <td><label class="labelStatusEntry" id="labelCrewEnergy">*</label></td>
+        </tr>
+        <tr>
+            <td>Avg crew hunger</td>
+            <td><label class="labelStatusEntry" id="labelCrewHunger">*</label></td>
+        </tr>
+        <tr>
+            <td>Min crew health</td>
+            <td><label class="labelStatusEntry" id="labelMinCrewHealth">*</label></td>
+        </tr>
+        <tr>
+            <td>Avg crew health</td>
+            <td><label class="labelStatusEntry" id="labelAvgCrewHealth">*</label></td>
+        </tr>
+        <tr>
+            <td>Travel mode</td>
+            <td><label class="labelStatusEntry" id="labelTravelMode">*</label></td>
+        </tr>
+        <tr>
+            <td>Position</td>
+            <td><label class="labelStatusEntry" id="labelPositionIndicator">*</label></td>
+        </tr>
+        <tr>
+            <td>Terrain</td>
+            <td><label class="labelStatusEntry" id="labelTerrainType">*</label></td>
+        </tr>
+        <tr>
+            <td>Weather</td>
+            <td><label class="labelStatusEntry" id="labelWeather">*</label></td>
+        </tr>
+        <tr>
+            <td>Version</td>
+            <td><label class="labelStatusEntry" id="labelZerbatVersion">*</label></td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td><label class="labelStatusEntry" id="labelStatusLine">*</label></td>
+        </tr>
+    </table>
+</div>
+
+<div id="tabs-crew">
+    <table class="zCrew zTable">
+        <tbody>
+        <tr>
+            <th>name</th>
+            <th>gender</th>
+            <th>age</th>
+            <th>birthday</th>
+            <th>STR</th>
+            <th>DEX</th>
+            <th>INT</th>
+            <th>WIS</th>
+            <th>CHA</th>
+            <th>hours until sleepy</th>
+            <th>hunger</th>
+            <th>most recent meal</th>
+            <th>health</th>
+            <th>healing rate per day</th>
+            <th>physical energy</th>
+            <th>date joined crew</th>
+            <th>skills</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="tabs-inventory">
+    <ul>
+        <li><a href="#tabs-inventory-special">Special</a></li>
+        <li><a href="#tabs-inventory-food">Food</a></li>
+        <li><a href="#tabs-inventory-weapons">Weapons</a></li>
+        <li><a href="#tabs-inventory-armor">Armor</a></li>
+        <li><a href="#tabs-inventory-equipment">Equipment</a></li>
+        <li><a href="#tabs-inventory-treasure">Treasure</a></li>
+    </ul>
+
+    <div id="tabs-inventory-special">
+    </div>
+
+    <div id="tabs-inventory-food">
+    </div>
+
+    <div id="tabs-inventory-weapons">
+    </div>
+
+    <div id="tabs-inventory-armor">
+    </div>
+
+    <div id="tabs-inventory-equipment">
+    </div>
+
+    <div id="tabs-inventory-treasure">
+    </div>
+
+</div>
+
+<div id="tabs-score">
+    <table class="zScore zTable">
+        <tbody>
+        <tr>
+            <td>Days survived</td>
+            <td><label class="scoreEntry" id="labelScoreDaysSurvived">*</label></td>
+        </tr>
+        <tr>
+            <td>Total gear value</td>
+            <td><label class="scoreEntry" id="labelScoreTotalGearValue">*</label></td>
+        </tr>
+        <tr>
+            <td>Cheater?</td>
+            <td><label class="scoreEntry" id="labelScoreTimesCheated">*</label></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="tabs-help">
+    <h1>Help with the game</h1>
+
+    <h2>What is it?</h2>
+
+    <p>This is a game of exploration, discovery, and adventure.</p>
+
+    <p>Try to survive as you build up your crew and gear. Can you discover the secret of the island?</p>
+
+    <h2>How it works</h2>
+
+    <h3>Travel</h3>
+
+    <p>To move around on the map, click it.
+        You can click the little map or the big one.
+        One click sends you in that direction for one hour.
+        How far you go in that hour depends on many factors: your travel mode (you can change this), the terrain,
+        the weather, how much stuff you are carrying, your health, and more.
+    </p>
+
+    <h2>How was it made?</h2>
+
+    <p>Here are the technologies I used:</p>
+    <ul>
+        <li><a href="http://ubuntu.com">Ubuntu</a> <a href="http://linux.org">Linux</a></li>
+        <li><a href="http://www.jetbrains.com/webstorm">WebStorm</a></li>
+        <li><a href="http://www.w3schools.com/html/html5_intro.asp">HTML5</a></li>
+        <li><a href="http://www.w3schools.com/css3">CSS3</a></li>
+        <li><a href="http://www.w3schools.com/js">JavaScript</a></li>
+        <li><a href="http://jquery.com">JQuery</a></li>
+        <li><a href="http://jqueryui.com">JQueryUI</a></li>
+        <li><a href="http://requirejs.org">RequireJS</a></li>
+        <li><a href="http://git-scm.com">git</a></li>
+    </ul>
+
+</div>
+
+</div>
+
+<footer class="topLevel" id="zFooter">
+    <p>© 2013 <a href="http://wadhome.org/~wad">Eric Wadsworth</a></p>
+</footer>
+
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+<script data-main="js/app.js" src="js/require.js"></script>
+<script src="js/plugins.js"></script>
+
+</body>
+</html>
